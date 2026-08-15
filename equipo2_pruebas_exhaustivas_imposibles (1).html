@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Equipo 2 · Las pruebas exhaustivas son imposibles</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --deep:#04263B;
+    --navy:#0B3B54;
+    --teal-dark:#0A6E77;
+    --teal:#0EA5A6;
+    --teal-light:#5FD0CC;
+    --foam:#EAF7F6;
+    --bg:#F2F7F8;
+    --card:#FFFFFF;
+    --ink:#0B2733;
+    --muted:#5B7480;
+    --accent:#2FB8C4;
+    --coral:#FF8A5B;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+  }
+  .page{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 0 40px 0;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(1100px 420px at 15% -10%, rgba(95,208,204,0.35), transparent 60%),
+      linear-gradient(160deg, var(--deep) 0%, var(--navy) 55%, var(--teal-dark) 100%);
+    position:relative;
+    overflow:hidden;
+    padding:56px 56px 74px 56px;
+    color:#fff;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:auto 0 0 0;
+    height:90px;
+    background:
+      radial-gradient(60px 40px at 5% 100%, var(--bg) 40%, transparent 42%),
+      radial-gradient(60px 40px at 20% 100%, var(--bg) 40%, transparent 42%),
+      radial-gradient(60px 40px at 35% 100%, var(--bg) 40%, transparent 42%),
+      radial-gradient(60px 40px at 50% 100%, var(--bg) 40%, transparent 42%),
+      radial-gradient(60px 40px at 65% 100%, var(--bg) 40%, transparent 42%),
+      radial-gradient(60px 40px at 80% 100%, var(--bg) 40%, transparent 42%),
+      radial-gradient(60px 40px at 95% 100%, var(--bg) 40%, transparent 42%);
+    opacity:0.9;
+  }
+  .badge-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.25);
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-weight:600;
+  }
+  .badge.water{
+    background:rgba(47,184,196,0.25);
+    border-color:rgba(95,208,204,0.55);
+  }
+  .eyebrow{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--teal-light);
+    font-weight:600;
+    margin:0 0 14px 0;
+  }
+  h1.hero-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:52px;
+    line-height:1.06;
+    font-weight:700;
+    margin:0 0 18px 0;
+    max-width:760px;
+  }
+  h1.hero-title .quote-mark{
+    color:var(--teal-light);
+  }
+  .hero-sub{
+    font-size:17px;
+    line-height:1.6;
+    color:#D7EEEE;
+    max-width:620px;
+    margin:0 0 30px 0;
+  }
+  .principle-strip{
+    display:flex;
+    gap:22px;
+    flex-wrap:wrap;
+    margin-top:28px;
+  }
+  .pill-stat{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:14px;
+    padding:14px 20px;
+    min-width:150px;
+  }
+  .pill-stat .num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;
+    font-weight:700;
+    color:#fff;
+  }
+  .pill-stat .lbl{
+    font-size:12px;
+    color:#BFE3E1;
+    margin-top:2px;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{
+    padding:0 56px;
+    margin-top:52px;
+  }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:22px;
+  }
+  .section-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:14px;
+    font-weight:700;
+    color:#fff;
+    background:var(--teal);
+    border-radius:8px;
+    padding:5px 11px;
+  }
+  .section-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;
+    font-weight:700;
+    color:var(--deep);
+    margin:0;
+  }
+  .section-note{
+    color:var(--muted);
+    font-size:14.5px;
+    margin:6px 0 0 0;
+    max-width:680px;
+  }
+
+  /* ---------- COMBINATORIAL VISUAL ---------- */
+  .combo-wrap{
+    background:var(--card);
+    border-radius:22px;
+    padding:36px 40px;
+    box-shadow:0 10px 30px rgba(11,59,84,0.08);
+    border:1px solid #E1EFEE;
+  }
+  .combo-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:24px;
+    align-items:center;
+  }
+  .combo-col{
+    text-align:center;
+  }
+  .combo-col .factor{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:15px;
+    font-weight:700;
+    color:var(--teal-dark);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-bottom:12px;
+  }
+  .chip-stack{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .chip{
+    background:var(--foam);
+    border:1px solid #CDEBEA;
+    color:var(--navy);
+    border-radius:8px;
+    padding:7px 10px;
+    font-size:13px;
+    font-weight:500;
+  }
+  .combo-op{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:30px;
+    color:var(--teal);
+    font-weight:700;
+    text-align:center;
+  }
+  .combo-result{
+    margin-top:28px;
+    background:linear-gradient(120deg, var(--deep), var(--teal-dark));
+    border-radius:16px;
+    padding:22px 28px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .combo-result .big-n{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:34px;
+    font-weight:700;
+  }
+  .combo-result .desc{
+    font-size:14px;
+    color:#CFEDEB;
+    max-width:520px;
+  }
+
+  /* ---------- CARDS 2 COL (concepto / cita) ---------- */
+  .grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .info-card{
+    background:var(--card);
+    border-radius:18px;
+    padding:28px 30px;
+    border-left:6px solid var(--teal);
+    box-shadow:0 8px 24px rgba(11,59,84,0.06);
+  }
+  .info-card h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:18px;
+    color:var(--deep);
+    margin:0 0 12px 0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .info-card p{
+    font-size:14.5px;
+    line-height:1.65;
+    color:#33505C;
+    margin:0 0 10px 0;
+  }
+  .info-card ul{
+    margin:8px 0 0 0;
+    padding-left:18px;
+  }
+  .info-card li{
+    font-size:14px;
+    line-height:1.6;
+    color:#33505C;
+    margin-bottom:6px;
+  }
+  .quote-card{
+    background:var(--deep);
+    color:#fff;
+    border-left:6px solid var(--coral);
+  }
+  .quote-card h3{color:#fff;}
+  .quote-card blockquote{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:19px;
+    font-style:italic;
+    line-height:1.5;
+    margin:10px 0 14px 0;
+    color:#EAF7F6;
+  }
+  .quote-src{
+    font-size:12.5px;
+    color:#9FD3D0;
+    letter-spacing:0.03em;
+  }
+
+  /* ---------- TECHNIQUES 3 COL ---------- */
+  .tech-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+  }
+  .tech-card{
+    background:var(--card);
+    border-radius:18px;
+    padding:26px 24px;
+    box-shadow:0 8px 24px rgba(11,59,84,0.06);
+    position:relative;
+    overflow:hidden;
+  }
+  .tech-card::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:5px;
+    background:linear-gradient(90deg, var(--teal), var(--teal-light));
+  }
+  .tech-icon{
+    width:44px;height:44px;
+    border-radius:12px;
+    background:var(--foam);
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;
+    margin-bottom:14px;
+  }
+  .tech-card h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:16px;
+    margin:0 0 8px 0;
+    color:var(--deep);
+  }
+  .tech-card p{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--muted);
+    margin:0;
+  }
+
+  /* ---------- EXAMPLE ---------- */
+  .example-wrap{
+    background:linear-gradient(135deg,#EAF7F6,#F6FBFB);
+    border:1px solid #CDEBEA;
+    border-radius:22px;
+    padding:34px 40px;
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:36px;
+    align-items:center;
+  }
+  .example-text h3{
+    font-family:'Space Grotesk',sans-serif;
+    color:var(--deep);
+    font-size:19px;
+    margin:0 0 10px 0;
+  }
+  .example-text p{
+    font-size:14.5px;
+    line-height:1.7;
+    color:#33505C;
+    margin:0 0 10px 0;
+  }
+  .example-text .tag{
+    display:inline-block;
+    background:#fff;
+    border:1px solid #BFE3E1;
+    color:var(--teal-dark);
+    font-size:12px;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:999px;
+    margin-bottom:12px;
+  }
+  .funnel{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .funnel-bar{
+    height:34px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:12.5px;
+    font-weight:600;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .fb1{width:100%; background:#0B3B54;}
+  .fb2{width:82%; background:#0A6E77;}
+  .fb3{width:60%; background:#0EA5A6;}
+  .fb4{width:38%; background:#5FD0CC; color:#04263B;}
+  .fb5{width:20%; background:#FF8A5B; color:#04263B;}
+
+  /* ---------- ANALOGY ---------- */
+  .analogy{
+    background:var(--card);
+    border-radius:22px;
+    padding:32px 40px;
+    display:flex;
+    gap:28px;
+    align-items:center;
+    box-shadow:0 8px 24px rgba(11,59,84,0.06);
+  }
+  .analogy-icon{
+    flex:0 0 auto;
+    width:96px;height:96px;
+    border-radius:24px;
+    background:linear-gradient(135deg,var(--teal),var(--navy));
+    display:flex;align-items:center;justify-content:center;
+    font-size:46px;
+  }
+  .analogy p{
+    font-size:15.5px;
+    line-height:1.7;
+    color:#33505C;
+    margin:0;
+  }
+  .analogy strong{color:var(--deep);}
+
+  /* ---------- SOURCES ---------- */
+  .sources{
+    background:var(--deep);
+    color:#fff;
+    border-radius:22px;
+    padding:30px 40px;
+  }
+  .sources h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:16px;
+    margin:0 0 16px 0;
+    color:var(--teal-light);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  .source-item{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    font-size:13.5px;
+  }
+  .source-item:last-child{border-bottom:none;}
+  .source-item .s-name{font-weight:600;}
+  .source-item .s-url{color:#9FD3D0;}
+
+  footer{
+    text-align:center;
+    padding:34px 20px 8px 20px;
+    color:var(--muted);
+    font-size:12.5px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="badge-row">
+      <span class="badge water">🌊 Equipo 2 · Elemento Agua</span>
+      <span class="badge">Pokémon Testing League</span>
+    </div>
+    <p class="eyebrow">Principio 2 de ISTQB — Fundamentos del testing</p>
+    <h1 class="hero-title">Las pruebas <span class="quote-mark">exhaustivas</span> son imposibles</h1>
+    <p class="hero-sub">Así como el tipo Agua fluye en direcciones infinitas y se adapta a cualquier contenedor, un sistema real tiene tantas combinaciones posibles de entradas y estados que probarlas todas llevaría más tiempo del que existe. El arte del testing no es cubrir todo: es priorizar con inteligencia.</p>
+    <div class="principle-strip">
+      <div class="pill-stat"><div class="num">7</div><div class="lbl">principios ISTQB CTFL v4.0</div></div>
+      <div class="pill-stat"><div class="num">2/7</div><div class="lbl">este es el principio n.º 2</div></div>
+      <div class="pill-stat"><div class="num">∞</div><div class="lbl">combinaciones posibles en la práctica</div></div>
+    </div>
+  </div>
+
+  <!-- 1. Visual combinatoria -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <div>
+        <h2 class="section-title">¿Por qué es imposible probar "todo"?</h2>
+        <p class="section-note">Cada variable nueva multiplica, no suma, la cantidad de combinaciones a probar.</p>
+      </div>
+    </div>
+    <div class="combo-wrap">
+      <div class="combo-grid">
+        <div class="combo-col">
+          <div class="factor">Tipo de evento</div>
+          <div class="chip-stack">
+            <div class="chip">Conciertos</div>
+            <div class="chip">Teatro</div>
+            <div class="chip">Deportes</div>
+            <div class="chip">+ decenas más</div>
+          </div>
+        </div>
+        <div class="combo-col">
+          <div class="factor">Fecha y venue</div>
+          <div class="chip-stack">
+            <div class="chip">365 días del año</div>
+            <div class="chip">Cientos de venues</div>
+            <div class="chip">Distintos sectores</div>
+            <div class="chip">Distinta capacidad</div>
+          </div>
+        </div>
+        <div class="combo-col">
+          <div class="factor">Compra</div>
+          <div class="chip-stack">
+            <div class="chip">Cant. de entradas</div>
+            <div class="chip">Medios de pago</div>
+            <div class="chip">Descuentos / promos</div>
+            <div class="chip">Reventa entre usuarios</div>
+          </div>
+        </div>
+      </div>
+      <div class="combo-result">
+        <div>
+          <div class="big-n">Millones de combinaciones posibles</div>
+          <div class="desc">En una plataforma de compra-venta de entradas, cruzar tipo de evento × fecha × venue × sector × cantidad × medio de pago genera un número de escenarios que ningún equipo podría ejecutar caso por caso, ni con automatización total.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Concepto + cita -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <div>
+        <h2 class="section-title">Concepto clave y definición formal</h2>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>🎯 En nuestras palabras</h3>
+        <p>Probar todas las combinaciones de datos, caminos y estados de un sistema real es, en la práctica, inviable: solo es posible en casos triviales. Por eso el testing no busca cobertura total, sino identificar dónde es más probable encontrar defectos y priorizar ahí el esfuerzo.</p>
+        <ul>
+          <li>La cantidad de combinaciones crece de forma multiplicativa, no lineal.</li>
+          <li>El objetivo no es "probar todo", sino probar lo que más importa.</li>
+          <li>Se usan técnicas sistemáticas para decidir qué casos representan mejor al resto.</li>
+        </ul>
+      </div>
+      <div class="info-card quote-card">
+        <h3>📝 Cita original</h3>
+        <blockquote>"No es posible probar todas las combinaciones posibles de entradas, salidas y condiciones en un sistema, excepto en casos muy simples y triviales."</blockquote>
+        <div class="quote-src">— Basado en el Principio 2 del ISTQB Certified Tester Foundation Level (CTFL) Syllabus v4.0, según lo documenta TestingBaires (2024)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Tecnicas -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <div>
+        <h2 class="section-title">Técnicas para priorizar en vez de "probar todo"</h2>
+        <p class="section-note">Estrategias sistemáticas que reducen el universo de casos a un subconjunto representativo.</p>
+      </div>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-icon">🧩</div>
+        <h4>Partición de equivalencias</h4>
+        <p>Se agrupan casos que el sistema debería tratar de forma similar —por ejemplo, todos los eventos de tipo "concierto"— y probando algunos representantes de ese grupo ya se cubre gran parte del comportamiento esperado.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">📏</div>
+        <h4>Análisis de valores límite</h4>
+        <p>En vez de probar cada fecha posible, se prueban los extremos del rango —por ejemplo, un evento del 1 de enero y otro del 31 de enero— que resultan representativos de todo lo que hay en el medio.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">⚠️</div>
+        <h4>Pruebas basadas en riesgo</h4>
+        <p>Cada combinación restante se prioriza según <strong>Probabilidad × Impacto</strong>: se concentran los esfuerzos donde es más probable que falle y donde más dañaría al negocio si fallara.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Ejemplo -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <div>
+        <h2 class="section-title">Ejemplo aplicado</h2>
+      </div>
+    </div>
+    <div class="example-wrap">
+      <div class="example-text">
+        <span class="tag">Caso: plataforma de compra-venta de entradas</span>
+        <h3>De millones de combinaciones a un set de pruebas manejable</h3>
+        <p>Una web de venta de entradas cruza tipos de evento, venues, fechas, cantidad de tickets, sectores y medios de pago: el resultado son millones de combinaciones posibles imposibles de probar una por una. Con <strong>partición de equivalencias</strong> se agrupan eventos con características similares —por ejemplo, todos los conciertos— y probando algunos representativos de ese grupo ya se cubre gran parte del comportamiento esperado.</p>
+        <p>Con <strong>análisis de valores límite</strong> se testean los extremos del rango, por ejemplo un evento del 1 de enero y otro del 31 de enero, que resultan representativos de todas las fechas intermedias. Por último, cada combinación restante se prioriza según su <strong>riesgo</strong>: Probabilidad × Impacto, enfocando el esfuerzo en lo que más probablemente falle y más dañaría al negocio si fallara.</p>
+      </div>
+      <div class="funnel">
+        <div class="funnel-bar fb1">Millones de combinaciones (evento × fecha × sector × pago)</div>
+        <div class="funnel-bar fb2">Agrupadas por tipo de evento (equivalencias)</div>
+        <div class="funnel-bar fb3">Solo fechas límite: 1 y 31 de enero</div>
+        <div class="funnel-bar fb4">Priorizadas por Probabilidad × Impacto</div>
+        <div class="funnel-bar fb5">Set final ejecutable ✔</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Analogia -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <div>
+        <h2 class="section-title">Analogía Pokémon</h2>
+      </div>
+    </div>
+    <div class="analogy">
+      <div class="analogy-icon">🌊</div>
+      <p><strong>El tipo Agua se adapta a cualquier contenedor y fluye en direcciones infinitas.</strong> Probar cada combinación posible de entradas, caminos y estados de un sistema real llevaría más tiempo del que existe. Los equipos de QA, como un buen entrenador, deben priorizar con inteligencia en lugar de perseguir una cobertura total que nunca podrán alcanzar.</p>
+    </div>
+  </section>
+
+  <!-- 6. Fuentes -->
+  <section>
+    <div class="sources">
+      <h3>Fuentes consultadas</h3>
+      <div class="source-item">
+        <span class="s-name">TestingBaires — "Principio 2: Las pruebas exhaustivas son imposibles" (2024)</span>
+        <span class="s-url">testingbaires.com</span>
+      </div>
+      <div class="source-item">
+        <span class="s-name">ISTQB — Certified Tester Foundation Level (CTFL) v4.0</span>
+        <span class="s-url">istqb.org</span>
+      </div>
+      <div class="source-item">
+        <span class="s-name">Globant — referencia de la industria en prácticas de QA y testing basado en riesgo</span>
+        <span class="s-url">linkedin.com/company/globant</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>Pokémon Testing League · Equipo 2 · Testing de Aplicaciones · UADE</footer>
+</div>
+</body>
+</html>
